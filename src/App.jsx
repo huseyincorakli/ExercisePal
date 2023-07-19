@@ -4,12 +4,17 @@ import Home from './pages/home';
 import Login from './pages/login';
 import supabase from './utils/supabase';
 import Loading from './components/utils/loading';
+import SignUp from './pages/signup';
+import Notification, {successLoginNotify,errorLoginNotify,errorLogOutNotify,successLogOutNotify} from './components/utils/notification'
+
 import './App.css'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user,setUser]=useState(null)
   const[loading,setLoading]=useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   
   useEffect(()=>{
     const session = supabase.auth.getUser();
@@ -27,19 +32,23 @@ function App() {
     setLoading(true)
     try {
       const auth = await supabase.auth.signInWithPassword({
-        email: 'user@gmail.com',
-        password: '123',
+        email: email,
+        password: password,
       });
       
       if (auth.error) {
         console.error('Login failed:', error.message);
+        errorLoginNotify();
+        
       } else {
         setIsLoggedIn(true)
         setUser(auth.data.user)
+        successLoginNotify();
         //console.log('Login successful:', auth.data.user);
       }
     } catch (error) {
       console.error('Login failed:', error.message);
+      errorLoginNotify();
     }
     setLoading(false)
   };
@@ -50,18 +59,23 @@ function App() {
       await supabase.auth.signOut();
       setIsLoggedIn(false);
       setUser(null);
+      successLogOutNotify();
+      setEmail(null);
+      setPassword(null)
       console.log('Logged out successfully');
     } catch (error) {
       console.error('Logout failed:', error.message);
+      errorLogOutNotify();
     }
     setLoading(false)
   };
 
   return (
-    <div>
-      <header><h2>Merhaba cart curt</h2></header>
-      <hr />
-      <section>
+    <div className='main h-auto'>
+      <Notification/>
+      <header className='my-4 mb-5 header'><h2 className='text-white text-3xl uppercase p-2'>Welcome To Exercise Pal</h2></header>
+     
+      <section className='mt-2'>
       {
         loading?
         <div><Loading/></div>
@@ -71,9 +85,12 @@ function App() {
           {user ? (
             <Route path="/*" element={<Home handleLogout={handleLogout} />} />
           ) : (
-            <Route path="/*" element={<Login handleLogin={handleLogin} />} />
+            <Route path="/*" element={<Login handleEmailChange={(e) => setEmail(e.target.value)}
+            handlePasswordChange={(e) => setPassword(e.target.value)} handleLogin={handleLogin} />} />
           )}
+           <Route path="/signup" element={<SignUp />} />
           {user ? <Route path="/home" element={<Home handleLogout={handleLogout} />} /> : null}
+          
         </Routes>
       </BrowserRouter>
       }
