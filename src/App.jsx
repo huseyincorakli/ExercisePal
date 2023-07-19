@@ -73,9 +73,9 @@ function App() {
   return (
     <div className='main h-auto'>
       <Notification/>
-      <header className='my-4 mb-5 header'><h2 className='text-white text-3xl uppercase p-2'>Welcome To Exercise Pal</h2></header>
+      <header className='my-4 mb-5 header animate-bounce '><h2 className='text-white text-3xl uppercase p-2'>Welcome To Exercise Pal</h2></header>
      
-      <section className='mt-2'>
+      <section className='mt-2 '>
       {
         loading?
         <div><Loading/></div>
