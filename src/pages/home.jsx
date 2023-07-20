@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Week from '../components/week';
+import Weeks from '../components/weeks';
 import User from '../components/user';
 
 const Home = ({ handleLogout,user }) => {
@@ -55,7 +55,7 @@ const Home = ({ handleLogout,user }) => {
         </button>
       </div>
 
-      <Week />
+      <Weeks user={user} />
     </div>
   );
 };

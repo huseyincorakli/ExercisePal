@@ -9,6 +9,7 @@ import Notification, {successLoginNotify,errorLoginNotify,errorLogOutNotify,succ
 
 
 import './App.css'
+import ResetPasword from './pages/resetPasword';
 //userid:auth.data.user.id
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,6 +31,7 @@ function App() {
     }
   },[])
   const handleLogin = async () => {
+    
     setLoading(true)
     try {
       const auth = await supabase.auth.signInWithPassword({
@@ -38,21 +40,17 @@ function App() {
       });
       
       if (auth.error) {
-        console.error('Login failed:', error.message);
-        errorLoginNotify();
-        
+        errorLoginNotify(auth.error);
       } else {
+        console.log( auth);
         setIsLoggedIn(true)
         setUser(auth.data.user)
-        successLoginNotify();
+        const mail = auth.data.user.email.split('@')[0];
+        successLoginNotify(mail);
         setCurrentUser(auth.data.user)
-        //console.log('Login successful:', auth.data.user);
+ 
       }
-    } catch (error) {
-      //console.log(error.message);
-        if (!isLoggedIn) {
-          errorLoginNotify()
-        }
+    } catch (err) {
     }
     setLoading(false)
   };
@@ -65,9 +63,9 @@ function App() {
       successLogOutNotify();
       setEmail(null);
       setPassword(null)
-      console.log('Logged out successfully');
+      //console.log('Logged out successfully');
     } catch (error) {
-      console.error('Logout failed:', error.message);
+      //console.error('Logout failed:', error.message);
       errorLogOutNotify();
     }
     setLoading(false)
@@ -76,7 +74,8 @@ function App() {
   return (
     <div className='main h-auto'>
       <Notification/>
-      <header className='my-4 mb-5 header animate-bounce '><h2 className='text-white text-3xl uppercase p-2'>Welcome To Exercise Pal</h2></header>
+      <header  className='mt-2 mb-1 header animate-bounce '><h2 className='text-white text-3xl uppercase p-2'>Welcome To Exercise Pal </h2>
+      </header>
      
       <section className='mt-2 '>
       {
@@ -92,6 +91,7 @@ function App() {
             handlePasswordChange={(e) => setPassword(e.target.value)} handleLogin={handleLogin} />} />
           )}
            <Route path="/signup" element={<SignUp />} />
+           <Route path="/update-password" element={<ResetPasword />} />
           {user ? <Route path="/home" element={<Home user={user} handleLogout={handleLogout} />} /> : null}
           
         </Routes>

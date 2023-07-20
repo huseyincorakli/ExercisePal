@@ -11,15 +11,28 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import supabase from '../utils/supabase';
+import { resetError, resetSuccess } from '../components/utils/notification';
 
 export default function Login({ handleLogin, handleEmailChange, handlePasswordChange }) {
+const[email,setEmail]=React.useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get('email');
+    const email =data.get('email');
     const password = data.get('password');
   };
-
+ const resetPassword=async ()=>{
+  try {
+    const reset= await supabase.auth.resetPasswordForEmail(email)
+    if (reset.error)
+        resetError(reset.error)
+    else
+        resetSuccess()
+  } catch (error) {
+    
+  }
+ }
   return (
     <div>
       <Container component="main" maxWidth="xs">
@@ -49,7 +62,10 @@ export default function Login({ handleLogin, handleEmailChange, handlePasswordCh
               label="Email Address"
               name="email"
               autoComplete="email"
-              onChange={handleEmailChange}
+              onChange={(e)=>{
+                handleEmailChange(e)
+                setEmail(e.target.value)
+              }}
               autoFocus
             />
             <TextField
@@ -63,10 +79,6 @@ export default function Login({ handleLogin, handleEmailChange, handlePasswordCh
               autoComplete="current-password"
               onChange={handlePasswordChange}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               onClick={handleLogin}
               type="submit"
@@ -78,9 +90,9 @@ export default function Login({ handleLogin, handleEmailChange, handlePasswordCh
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <a className='text-sm text-blue-600 underline cursor-pointer '  onClick={resetPassword}  >
                   Forgot password?
-                </Link>
+                </a>
               </Grid>
               <Grid item>
               <RouterLink className='text-sm text-blue-600 underline' to="/signup" >
