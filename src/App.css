@@ -247,6 +247,7 @@ box-shadow:  8px 8px 16px #0e0518,
 }
 
 .marquee {
+font-size:19px;
   display: inline-block;
   white-space: nowrap;
   animation: marquee 30s linear infinite;
@@ -259,4 +260,15 @@ box-shadow:  8px 8px 16px #0e0518,
   to {
     transform: translateX(-100%);
   }
+}
+/* Modal stilini düzenlemek için gerekli CSS */
+.modal-content {
+  background-color: #ffffff; /* İçerik rengi */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Modalın genişliğini ayarlayabilirsiniz */
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay alanının karanlık rengi */
 }

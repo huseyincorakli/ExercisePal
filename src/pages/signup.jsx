@@ -28,14 +28,20 @@ export default function SignUp () {
       if (signup.error) {
         signUpError(signup.error.message)
       } else {
+        const newUserId = signup.data.user.id
+        for (let i = 0; i < 4; i++) {
+          const newRow = {
+            user_id: newUserId,
+            week_exercises: {}
+          }
+          await supabase.from('weeks').insert([newRow])
+        }
         signUpSuccess()
-       
       }
     } catch (error) {
       signUpError(error)
     }
   }
-  //Kullanıcı oluşturulduğunda==>Week Tabloları veritabnanına eklenecek!!!
   return (
     <div>
       <Container component='main' maxWidth='xs'>
