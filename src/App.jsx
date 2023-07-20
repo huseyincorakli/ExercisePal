@@ -7,8 +7,9 @@ import Loading from './components/utils/loading';
 import SignUp from './pages/signup';
 import Notification, {successLoginNotify,errorLoginNotify,errorLogOutNotify,successLogOutNotify} from './components/utils/notification'
 
-import './App.css'
 
+import './App.css'
+//userid:auth.data.user.id
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user,setUser]=useState(null)
@@ -44,15 +45,17 @@ function App() {
         setIsLoggedIn(true)
         setUser(auth.data.user)
         successLoginNotify();
+        setCurrentUser(auth.data.user)
         //console.log('Login successful:', auth.data.user);
       }
     } catch (error) {
-      console.error('Login failed:', error.message);
-      errorLoginNotify();
+      //console.log(error.message);
+        if (!isLoggedIn) {
+          errorLoginNotify()
+        }
     }
     setLoading(false)
   };
-
   const handleLogout = async () => {
     setLoading(true)
     try {
@@ -83,13 +86,13 @@ function App() {
         <BrowserRouter>
         <Routes>
           {user ? (
-            <Route path="/*" element={<Home handleLogout={handleLogout} />} />
+            <Route path="/*" element={<Home user={user} handleLogout={handleLogout} />} />
           ) : (
             <Route path="/*" element={<Login handleEmailChange={(e) => setEmail(e.target.value)}
             handlePasswordChange={(e) => setPassword(e.target.value)} handleLogin={handleLogin} />} />
           )}
            <Route path="/signup" element={<SignUp />} />
-          {user ? <Route path="/home" element={<Home handleLogout={handleLogout} />} /> : null}
+          {user ? <Route path="/home" element={<Home user={user} handleLogout={handleLogout} />} /> : null}
           
         </Routes>
       </BrowserRouter>
