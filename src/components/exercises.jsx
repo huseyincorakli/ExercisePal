@@ -1,8 +1,35 @@
 import React from 'react'
 
-const Exercises = () => {
+const Exercises = ({data}) => {
+  console.log('exercises:',data);
   return (
-    <div>MODAL</div>
+    <div className='text-white '>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+      <p>deneme</p>
+    </div>
   )
 }
 

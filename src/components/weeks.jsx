@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Week from './week'
-import Attention from './utils/attention'
+import PlayList from './playlist'
 import supabase from '../utils/supabase'
 const Weeks = ({user}) => {
   const [userData,setUserData]=useState([])
@@ -23,7 +23,7 @@ const Weeks = ({user}) => {
 
   return (
     <div className='p-2'>
-      <Attention message={message}></Attention>
+      <PlayList></PlayList>
       {userData.map((date, index) => (
         <Week key={index} number={index + 1} data={userData} />
       ))}

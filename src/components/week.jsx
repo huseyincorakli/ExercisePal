@@ -1,5 +1,6 @@
 import { Box, Button, Modal } from '@mui/material'
 import React from 'react'
+import Exercises from './exercises';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -26,7 +27,7 @@ const Week = ({ number, data }) => {
   };
   //console.log('week',data);
   return (
-    <div className='border m-4 p-4 flex items-center rounded-tr-[40px] rounded-bl-[40px]'>
+    <div className='border bg-[#7895CB] m-4 p-4 flex items-center rounded-tr-[40px] rounded-bl-[40px]'>
       <p className='flex-1'>Week {number} </p>
       <button
       onClick={handleOpen}
@@ -60,10 +61,15 @@ const Week = ({ number, data }) => {
             ...style,
             width: '85%', // Set the width to 70% of the screen
             '@media (max-width: 600px)': {
-              width: '90%', // Customize the width for smaller screens if needed
+              width: '90%',
             },
+            maxHeight:'80%',
+            backgroundColor:'#3F2E3E',
+            borderTopLeftRadius:'40px',
+            borderBottomLeftRadius:'40px',
+            overflowY:'scroll'
           }}>
-          <p className='text-black'>aaa</p>
+          <Exercises data={data[number-1]}></Exercises>
         </Box>
       </Modal>
     </div>
