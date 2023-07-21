@@ -61,12 +61,10 @@ const Week = ({ number, data }) => {
             ...style,
             width: '85%', // Set the width to 70% of the screen
             '@media (max-width: 600px)': {
-              width: '90%',
+              width: '98%',
             },
-            maxHeight:'80%',
+            maxHeight:'70%',
             backgroundColor:'#3F2E3E',
-            borderTopLeftRadius:'40px',
-            borderBottomLeftRadius:'40px',
             overflowY:'scroll'
           }}>
           <Exercises data={data[number-1]}></Exercises>
