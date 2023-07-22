@@ -24,7 +24,7 @@ const Home = ({ handleLogout,user }) => {
       }
     };
 
-    //fetchQuotes();
+    fetchQuotes();
   }, []);
 
   useEffect(() => {
