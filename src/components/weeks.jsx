@@ -18,7 +18,6 @@ const Weeks = ({user}) => {
 
     const data = response.data;
     setUserData(data);
-    console.log(userId);
   }
 
   return (

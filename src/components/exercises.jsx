@@ -1,21 +1,51 @@
-import { Box, Paper } from '@mui/material'
-import React from 'react'
+import { Box, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 const Exercises = ({ data }) => {
-  console.log('exercises:', data.week_exercises)
-  return (
-    <div className='text-black '>
-      <div class='flex justify-end m-2'>
+  const [exercisesData, setExercisesData] = useState([]);
+  useEffect(() => {
+    if (data && data.week_exercises) {
+      setExercisesData(data.week_exercises);
+    }
+  }, [data]);
+
+  if (exercisesData.length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  // Additional check to prevent mapping when exercisesData is not an array
+  if (!Array.isArray(exercisesData)) {
+    return <div>
+      <div className='text-black'>
+      <div className='flex justify-end m-2'>
         <div>
-          <button class='bg-green-600 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded mr-2'>
+          <button className='bg-green-600 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded mr-2'>
             Add Exercise
           </button>
-          <button class='bg-red-600 hover:bg-red-900 text-white font-semibold py-2 px-4 rounded'>
+          <button className='bg-red-600 hover:bg-red-900 text-white font-semibold py-2 px-4 rounded'>
+            Delete All
+          </button>
+        </div>
+       
+      </div>
+      <h2 className='text-white'>You have no exercise plan.Please add exercise.</h2>
+    </div>
+    </div>;
+  }
+
+  return (
+    <div className='text-black'>
+      <div className='flex justify-end m-2'>
+        <div>
+          <button className='bg-green-600 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded mr-2'>
+            Add Exercise
+          </button>
+          <button className='bg-red-600 hover:bg-red-900 text-white font-semibold py-2 px-4 rounded'>
             Delete All
           </button>
         </div>
       </div>
-      {data.week_exercises.map((exercise, index) => (
+      {exercisesData.map((exercise, index) => (
         <div key={index} className='h-[10rem] bg-white rounded-md shadow-md overflow-hidden mb-2'>
           <div className='w-auto p-4'>
             <table className='w-full'>
@@ -44,7 +74,7 @@ const Exercises = ({ data }) => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Exercises
+export default Exercises;

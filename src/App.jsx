@@ -42,7 +42,6 @@ function App() {
       if (auth.error) {
         errorLoginNotify(auth.error);
       } else {
-        console.log( auth);
         setIsLoggedIn(true)
         setUser(auth.data.user)
         const mail = auth.data.user.email.split('@')[0];
