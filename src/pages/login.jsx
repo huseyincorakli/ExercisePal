@@ -90,8 +90,8 @@ const[email,setEmail]=React.useState('');
             </Button>
             <Grid container>
               <Grid item xs>
-                <a className='text-sm text-blue-600 underline cursor-pointer '  onClick={resetPassword}  >
-                  Forgot password?
+                <a className='text-sm text-blue-600 underline cursor-pointer '  /*</Grid>onClick={resetPassword} */ >
+                  {/* Forgot password? */}
                 </a>
               </Grid>
               <Grid item>
