@@ -32,7 +32,8 @@ export default function SignUp () {
         for (let i = 0; i < 4; i++) {
           const newRow = {
             user_id: newUserId,
-            week_exercises: {}
+            week_exercises: {},
+            week_name:`WEEK ${i+1}`
           }
           await supabase.from('weeks').insert([newRow])
         }

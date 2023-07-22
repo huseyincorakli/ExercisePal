@@ -16,8 +16,7 @@ const style = {
   pb: 3,
 };
 
-const Week = ({ number, data }) => {
-  
+const Week = ({ weekname,number, data,setRefreshData,refreshData }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -25,10 +24,11 @@ const Week = ({ number, data }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  //console.log('week',data);
+  
+ 
   return (
     <div className='border bg-[#7895CB] m-4 p-4 flex items-center rounded-tr-[40px] rounded-bl-[40px]'>
-      <p className='flex-1'>Week {number} </p>
+      <p className='flex-1 text-black'>{weekname} </p>
       <button
       onClick={handleOpen}
         type='button'
@@ -64,10 +64,10 @@ const Week = ({ number, data }) => {
               width: '98%',
             },
             maxHeight:'70%',
-            backgroundColor:'#3F2E3E',
-            overflowY:'scroll'
+            backgroundColor:'#1E0B32',
+            overflowY:'scroll',
           }}>
-          <Exercises data={data[number-1]}></Exercises>
+          <Exercises data={number} setRefreshData={setRefreshData} refreshData={refreshData}></Exercises>
         </Box>
       </Modal>
     </div>

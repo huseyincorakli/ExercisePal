@@ -62,9 +62,7 @@ function App() {
       successLogOutNotify();
       setEmail(null);
       setPassword(null)
-      //console.log('Logged out successfully');
     } catch (error) {
-      //console.error('Logout failed:', error.message);
       errorLogOutNotify();
     }
     setLoading(false)
