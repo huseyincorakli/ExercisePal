@@ -11,7 +11,7 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     // JSON dosyasından müzik verilerini almak için fetch API'sini kullanın
-    fetch("src/music/music.json")
+    fetch("./music/music.json")
       .then((response) => response.json())
       .then((data) => setMusicList(data))
       .catch((error) => console.error(error));
