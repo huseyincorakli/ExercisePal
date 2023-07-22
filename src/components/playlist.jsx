@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { PlayArrow, Pause, PublishedWithChanges } from "@mui/icons-material";
 
+
 const MusicPlayer = () => {
   const [musicList, setMusicList] = useState([]);
   const [currentMusic, setCurrentMusic] = useState(null);
@@ -10,13 +11,12 @@ const MusicPlayer = () => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // JSON dosyasından müzik verilerini almak için fetch API'sini kullanın
-    fetch("./music/music.json")
+    const url='https://hnjgnntxkwejoickjxxr.supabase.co/storage/v1/object/sign/deneme/music.json?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJkZW5lbWUvbXVzaWMuanNvbiIsImlhdCI6MTY5MDAxNTkzNCwiZXhwIjoxNzIxNTUxOTM0fQ.kvC7v-IXFsl-_OfuNgv2vC6lJZNVukWmj5QDx00odHk&t=2023-07-22T08%3A52%3A13.747Z';
+    fetch(url)
       .then((response) => response.json())
       .then((data) => setMusicList(data))
       .catch((error) => console.error(error));
   }, []);
-
   useEffect(() => {
     if (musicList.length > 0 && currentMusic === null) {
       // Rastgele bir müzik seç
